@@ -5,9 +5,9 @@ import CalcImcResult from "../components/CalcImcResult.vue";
 
 export default {
   components: {
-    CalcImcResult,
     CustomHeader,
     Sidebar,
+    CalcImcResult,
   },
   data() {
     return {
@@ -29,20 +29,24 @@ export default {
         case imc < 18.5:
           this.classificacao = "Abaixo do peso normal";
           break;
-        case imc > 18.5 && imc < 25:
+        case imc >= 18.5 && imc < 25:
           this.classificacao = "Peso normal";
           break;
-        case imc > 25 && imc < 30:
+        case imc >= 25 && imc < 30:
           this.classificacao = "Excesso de peso";
           break;
-        case imc > 30 && imc < 35:
+        case imc >= 30 && imc < 35:
           this.classificacao = "Obesidade grau I";
           break;
-        case imc > 35 && imc < 40:
+        case imc >= 35 && imc < 40:
           this.classificacao = "Obesidade grau II";
           break;
-        default:
+        case imc >= 40:
           this.classificacao = "Obesidade grau III";
+          break;
+        default:
+          alert("Alguma coisa deu errado");
+          break;
       }
     },
   },
@@ -51,53 +55,112 @@ export default {
 
 <template>
   <main>
-    <CustomHeader />
-    <Sidebar />
-    <div class="form-container">
+    <div class="header">
+      <CustomHeader />
+    </div>
+    <div class="sidebar">
+      <Sidebar />
+    </div>
+    <div class="main-content">
       <form @submit.prevent="calculaImc(peso, altura)">
-        <label>Peso(kg):</label>
-        <input v-model="peso" type="number" name="peso" id="peso" step="0.01" />
-        <label>Altura(m):</label>
-        <input
-          v-model="altura"
-          type="number"
-          name="altura"
-          id="altura"
-          step="0.01"
-        />
-
+        <div class="data-inputs">
+          <label id="label-peso">Peso(kg):</label>
+          <input
+            v-model="peso"
+            type="number"
+            name="peso"
+            id="peso"
+            step="0.01"
+          />
+          <label id="label-altura">Altura(m):</label>
+          <input
+            v-model="altura"
+            type="number"
+            name="altura"
+            id="altura"
+            step="0.01"
+          />
+        </div>
         <button type="submit">Calcular</button>
+        <CalcImcResult
+          v-if="result > 0 && classificacao.length > 0"
+          :result="result"
+          :classificacao="classificacao"
+          class="result"
+        />
       </form>
     </div>
-    <CalcImcResult
-      v-if="result > 0 && classificacao.length > 0"
-      :result="result"
-      :classificacao="classificacao"
-      class="result"
-    />
   </main>
 </template>
 
-<style scoped>
-label {
-  color: black;
-  padding-left: 8%;
+<style lang="css" scoped>
+#label-altura {
+  padding-left: 2%;
+  padding-right: 3%;
 }
-.form-container {
-  position: absolute;
-  width: 100%;
-  left: 30%;
-  top: 30%;
+
+#label-peso {
+  padding-right: 3%;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 6vh 88vh;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
 
 .result {
-  position: absolute;
-  left: 45%;
-  top: 65%
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+  height: 100%;
 }
 
-input {
-  margin-left: 0.5rem;
+.header {
+  grid-area: 1 / 1 / 2 / 3;
+  background-color: blueviolet;
+}
+
+.sidebar {
+  grid-area: 2 / 1 / 6 / 2;
+  background-color: aquamarine;
+}
+.main-content {
+  grid-area: 2 / 2 / 6 / 3;
+  background-color: #333333;
+  color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.data-inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  width: 13rem;
+  height: 4rem;
+  font-size: 1.25rem;
+  background-color: #f06537;
+  color: white;
+  box-shadow: 0px 0px 12px -2px rgba(143, 47, 12, 1);
+  border-radius: 5px;
+  cursor: pointer;
+  border-color: #f06537;
+  margin-top: 5%;
+  margin-left: 32%;
+}
+
+button:hover {
+  background-color: #ed8442;
+  border-color: #ed8442;
+  box-shadow: 0px 0px 12px -2px rgb(200, 98, 60);
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -108,28 +171,7 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
-  width: 15%;
-  height: 10%;
-}
-
-button {
-  position: absolute;
-  top: 300%;
-  right: 58%;
-  width: 13rem;
-  height: 4rem;
-  font-size: 1.25rem;
-  background-color: #f06537;
-  color: white;
-  box-shadow: 0px 0px 12px -2px rgba(143, 47, 12, 1);
-  border-radius: 5px;
-  cursor: pointer;
-  border-color: #f06537;
-}
-
-button:hover {
-  background-color: #ed8442;
-  border-color: #ed8442;
-  box-shadow: 0px 0px 12px -2px rgb(200, 98, 60);
+  height: 2rem;
+  width: 14rem;
 }
 </style>
