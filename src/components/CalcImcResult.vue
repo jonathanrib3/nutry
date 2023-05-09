@@ -56,15 +56,13 @@ export default {
 </script>
 
 <template>
-  <main>
-    <div class="result-card" :class="classificacao_css_class_object">
-      <div class="result-card-content">
-        <h1>{{ this.result }} kg/m²</h1>
+  <div class="result-card" :class="classificacao_css_class_object">
+    <div class="result-card-content">
+      <h1>{{ this.result }} kg/m²</h1>
 
-        <h2>{{ this.classificacao }}</h2>
-      </div>
+      <h2>{{ this.classificacao }}</h2>
     </div>
-  </main>
+  </div>
 </template>
 
 <style lang="css" scoped>
@@ -72,12 +70,12 @@ export default {
   color: white;
   font-weight: bold;
   border-radius: 3px;
-  height: 40%;
-  width: 75%;
-  padding-top: 1%;
+  width: 100%;
+  height: 110%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 4%;
 }
 
 .result-card-content {
@@ -92,11 +90,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 2.25rem;
 }
 .result-card h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 2rem;
 }
 
 .abaixo-normal {
@@ -145,12 +145,6 @@ export default {
 }
 
 .obesidade-3 {
-  /* background: rgb(242, 4, 69);
-  background: linear-gradient(
-    180deg,
-    rgba(242, 4, 69, 1) 0%,
-    rgba(196, 39, 4, 1) 100%
-  ); */
   background: rgb(126, 125, 125);
   background: linear-gradient(
     180deg,

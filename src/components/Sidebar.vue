@@ -3,27 +3,20 @@ export default {};
 </script>
 
 <template>
-  <main>
-    <div class="side-container">
-      <router-link to="/calc-basal" class="calc-basal"
-        >Calculadora de Metabolismo Basal</router-link
-      >
-      <router-link to="/calc-imc" class="calc-basal"
-        >Calculadora IMC</router-link
-      >
-      <a href="#" class="calc-basal-3"
-        >Tabela Brasileira de Composição de Alimentos</a
-      >
-      <a href="#" class="calc-basal-4">To Be Defined</a>
-    </div>
-  </main>
+  <div class="side-container">
+    <router-link to="/calc-basal" class="calc-basal"
+      >Calculadora de Metabolismo Basal</router-link
+    >
+    <router-link to="/calc-imc" class="calc-basal">Calculadora IMC</router-link>
+    <a href="#" class="calc-basal-3">Calculadora de Alimentos</a>
+    <a href="#" class="calc-basal-4">To Be Defined</a>
+  </div>
 </template>
 
 <style scoped>
-main {
-  background-color: #660066;
-  width: 100%;
-  height: 100%;
+.side-container {
+  width: 82%;
+  height: 6%;
   white-space: nowrap;
 }
 

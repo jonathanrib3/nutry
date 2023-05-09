@@ -21,7 +21,7 @@ export default {
         alert("Insira peso(kg) E altura(m) válidos!");
         return;
       }
-      this.result = peso / (altura * altura);
+      this.result = (peso / (altura * altura)).toFixed(2);
       this.defineClassificacao(this.result);
     },
     defineClassificacao(imc) {
@@ -55,15 +55,15 @@ export default {
 
 <template>
   <main>
-    <div class="header">
+    <header>
       <CustomHeader />
-    </div>
+    </header>
     <div class="sidebar">
       <Sidebar />
     </div>
     <div class="main-content">
       <form @submit.prevent="calculaImc(peso, altura)">
-        <div class="data-inputs">
+        <div class="data-inputs-grid">
           <label id="label-peso">Peso(kg):</label>
           <input
             v-model="peso"
@@ -81,13 +81,16 @@ export default {
             step="0.01"
           />
         </div>
-        <button type="submit">Calcular</button>
-        <CalcImcResult
-          v-if="result > 0 && classificacao.length > 0"
-          :result="result"
-          :classificacao="classificacao"
-          class="result"
-        />
+        <div class="button-grid">
+          <button type="submit">Calcular</button>
+        </div>
+        <div class="result-grid">
+          <CalcImcResult
+            v-if="result > 0 && classificacao.length > 0"
+            :result="result"
+            :classificacao="classificacao"
+          />
+        </div>
       </form>
     </div>
   </main>
@@ -103,29 +106,48 @@ export default {
   padding-right: 3%;
 }
 
-main {
+form {
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: 6vh 88vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
 
-.result {
-  margin-top: 10%;
-  display: flex;
-  justify-content: center;
-  height: 100%;
+main {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 6vh 94vh;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
 
-.header {
+.data-inputs-grid {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.button-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+}
+
+header {
   grid-area: 1 / 1 / 2 / 3;
-  background-color: blueviolet;
 }
 
 .sidebar {
   grid-area: 2 / 1 / 6 / 2;
-  background-color: aquamarine;
+  background-color: #660066;
 }
 .main-content {
   grid-area: 2 / 2 / 6 / 3;
@@ -135,12 +157,6 @@ main {
   justify-content: center;
   align-items: center;
   width: 100%;
-}
-
-.data-inputs {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 button {
@@ -153,8 +169,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
   border-color: #f06537;
-  margin-top: 5%;
-  margin-left: 32%;
 }
 
 button:hover {
@@ -168,6 +182,7 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;

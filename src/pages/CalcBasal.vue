@@ -54,49 +54,108 @@ export default {
 
 <template>
   <main>
-    <CustomHeader />
-    <Sidebar />
-    <div class="form-container">
+    <header>
+      <CustomHeader />
+    </header>
+
+    <div class="sidebar">
+      <Sidebar />
+    </div>
+
+    <div class="main-content">
       <form
         @submit.prevent="calculaMetabolismoBasal(sexo, idade, peso, altura)"
       >
-        <select v-model="sexo" id="sexo">
-          <option value="Feminino">Feminino</option>
-          <option value="Masculino">Masculino</option>
-        </select>
+        <div class="data-inputs-grid">
+          <select v-model="sexo" id="sexo">
+            <option value="Feminino">Feminino</option>
+            <option value="Masculino">Masculino</option>
+          </select>
 
-        <label>Idade:</label>
-        <input v-model="idade" type="number" name="idade" id="idade" />
-        <label>Peso(kg):</label>
-        <input v-model="peso" type="number" name="peso" id="peso" />
-        <label>Altura(cm):</label>
-        <input v-model="altura" type="number" name="altura" id="altura" />
-
-        <button type="submit">Calcular</button>
+          <label id="label-idade">Idade:</label>
+          <input v-model="idade" type="number" name="idade" id="idade" />
+          <label id="label-peso">Peso(kg):</label>
+          <input v-model="peso" type="number" name="peso" id="peso" />
+          <label id="label-altura">Altura(cm):</label>
+          <input v-model="altura" type="number" name="altura" id="altura" />
+        </div>
+        <div class="button-grid">
+          <button type="submit">Calcular</button>
+        </div>
+        <div class="result-grid">
+          <CalcBasalResult v-if="result > 0" :content="result" class="result" />
+        </div>
       </form>
-
-      <CalcBasalResult v-if="result > 0" :content="result" class="result" />
     </div>
   </main>
 </template>
 
 <style scoped>
-label {
-  color: black;
-  padding-left: 1%;
-}
-.form-container {
-  position: absolute;
-  width: 100%;
-  left: 30%;
-  top: 30%;
+#label-idade {
+  margin-left: 2%;
+  margin-right: 1%;
 }
 
-.result {
-  /* position: absolute;
-  left: 25%; */
-  margin-left: 15%;
-  margin-top: 15%;
+#label-peso {
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+#label-altura {
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 6vh 94vh;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+header {
+  grid-area: 1 / 1 / 2 / 3;
+}
+
+.sidebar {
+  grid-area: 2 / 1 / 6 / 2;
+  background-color: #660066;
+}
+.main-content {
+  grid-area: 2 / 2 / 6 / 3;
+  background-color: #333333;
+  color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.data-inputs-grid {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.button-grid {
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+.result-grid {
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
 }
 
 select {
@@ -109,7 +168,8 @@ select {
 }
 
 input {
-  margin-left: 0.5rem;
+  height: 2rem;
+  width: 12rem;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -123,9 +183,6 @@ input[type="number"] {
 }
 
 button {
-  position: absolute;
-  top: 200%;
-  right: 58%;
   width: 13rem;
   height: 4rem;
   font-size: 1.25rem;

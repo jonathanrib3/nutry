@@ -20,11 +20,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgb(236, 143, 11);
+  background: rgb(168, 37, 175);
   background: linear-gradient(
     180deg,
-    rgba(236, 143, 11, 1) 0%,
-    rgba(241, 80, 6, 1) 100%
+    rgba(168, 37, 175, 1) 0%,
+    rgba(81, 0, 113, 1) 100%
   );
   color: aliceblue;
   font-weight: bold;
@@ -32,7 +32,8 @@ export default {
   border-style: double;
   border: 5px;
   border-color: #41bf95;
-  width: 30rem;
-  height: 8rem;
+  width: 45%;
+  height: 170%;
+  margin-top: 3%;
 }
 </style>
