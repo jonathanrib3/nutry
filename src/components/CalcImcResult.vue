@@ -56,8 +56,11 @@ export default {
 </script>
 
 <template>
-  <div class="result-card" :class="classificacao_css_class_object">
-    <div class="result-card-content">
+  <div
+    class="w-full h-36 flex text-center justify-center items-center text-3xl font-semibold rounded dark:brightness-[.8] text-gray-200"
+    :class="classificacao_css_class_object"
+  >
+    <div>
       <h1>{{ this.result }} kg/m²</h1>
 
       <h2>{{ this.classificacao }}</h2>
@@ -66,39 +69,6 @@ export default {
 </template>
 
 <style lang="css" scoped>
-.result-card {
-  color: white;
-  font-weight: bold;
-  border-radius: 3px;
-  width: 100%;
-  height: 110%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 4%;
-}
-
-.result-card-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-}
-
-.result-card h1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2.25rem;
-}
-.result-card h2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-}
-
 .abaixo-normal {
   background: rgb(108, 11, 236);
   background: linear-gradient(

@@ -1,5 +1,5 @@
 {
-  "name": "metabolismo-basal-calc",
+  "name": "nutry",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -14,6 +14,9 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^3.0.2",
+    "@headlessui/vue": "^1.7.13",
+    "@heroicons/vue": "^2.0.18",
+    "@vueuse/core": "^10.1.2",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
@@ -21,9 +24,12 @@
     "@rushstack/eslint-patch": "^1.1.4",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",
+    "autoprefixer": "^10.4.14",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
+    "postcss": "^8.4.23",
     "prettier": "^2.7.1",
+    "tailwindcss": "^3.3.2",
     "vite": "^4.0.0"
   }
 }

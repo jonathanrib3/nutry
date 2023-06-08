@@ -10,14 +10,16 @@ export default {
 </script>
 
 <template>
-  <div class="result-card">
+  <div
+    class="flex justify-center items-center w-[80%] h-32 bg-gradient-to-b from-fuchsia-500/90 to-purple-800 dark:brightness-[.85] text-gray-200 font-bold text-3xl rounded"
+  >
     <h1>{{ this.content }} kcal</h1>
   </div>
 </template>
 
 <style scoped>
-.result-card {
-  display: flex;
+/* .result-card {
+  /* display: flex;
   justify-content: center;
   align-items: center;
   background: rgb(168, 37, 175);
@@ -35,5 +37,5 @@ export default {
   width: 45%;
   height: 170%;
   margin-top: 3%;
-}
+} */
 </style>

@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: 220 220 220;
+  --color-secondary: 193 193 193;
+  --color-text: 0 0 0;
+  --color-light: 245 245 245;
+  --color-success: 0 200 81;
+  --color-info: 51 181 229;
+  --color-warn: 255 187 51;
+  --color-error: 254 78 78;
+}
+
+:root[class="dark"] {
+  --color-primary: 25 25 25;
+  --color-secondary: 35 35 35;
+  --color-text: 255 255 255;
+  --color-light: 245 245 245;
+  --color-success: 0 200 81;
+  --color-info: 51 181 229;
+  --color-warn: 255 187 51;
+  --color-error: 254 78 78;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.carrossel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.carrossel {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

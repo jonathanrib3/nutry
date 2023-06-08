@@ -1,11 +1,9 @@
 <script>
-import CustomHeader from "../components/Header.vue";
 import Sidebar from "../components/Sidebar.vue";
 import CalcImcResult from "../components/CalcImcResult.vue";
 
 export default {
   components: {
-    CustomHeader,
     Sidebar,
     CalcImcResult,
   },
@@ -17,11 +15,25 @@ export default {
   },
   methods: {
     calculaImc(peso, altura) {
-      if (peso <= 0 || peso <= 4 || altura <= 0 || altura >= 3) {
+      const pesoValor = peso.includes(",")
+        ? parseFloat(peso.replace(",", "."))
+        : parseFloat(peso);
+      const alturaValor = altura.includes(",")
+        ? parseFloat(altura.replace(",", "."))
+        : parseFloat(altura);
+      console.log(typeof pesoValor, typeof alturaValor);
+      if (
+        pesoValor <= 0 ||
+        pesoValor <= 4 ||
+        alturaValor <= 0 ||
+        alturaValor >= 3
+      ) {
         alert("Insira peso(kg) E altura(m) válidos!");
         return;
       }
-      this.result = (peso / (altura * altura)).toFixed(2);
+      this.result = Number(
+        (pesoValor / (alturaValor * alturaValor)).toFixed(2)
+      );
       this.defineClassificacao(this.result);
     },
     defineClassificacao(imc) {
@@ -54,37 +66,59 @@ export default {
 </script>
 
 <template>
-  <main>
-    <header>
-      <CustomHeader />
-    </header>
-    <div class="sidebar">
+  <main class="grid grid-cols-[1fr_5fr] grid-rows-[100vh]">
+    <div class="col-start-1">
       <Sidebar />
     </div>
-    <div class="main-content">
-      <form @submit.prevent="calculaImc(peso, altura)">
-        <div class="data-inputs-grid">
-          <label id="label-peso">Peso(kg):</label>
-          <input
-            v-model="peso"
-            type="number"
-            name="peso"
-            id="peso"
-            step="0.01"
-          />
-          <label id="label-altura">Altura(m):</label>
-          <input
-            v-model="altura"
-            type="number"
-            name="altura"
-            id="altura"
-            step="0.01"
-          />
+
+    <div class="col-start-2 flex justify-center items-center bg-primary">
+      <form
+        @submit.prevent="calculaImc(peso, altura)"
+        class="w-[80%] h-[80%] dark:bg-secondary pt-16 px-40 bg-gray-400/20 rounded leading-tight shadow-lg dark:shadow-[0_7px_7px_rgba(255,255,255,0.080)]"
+      >
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              class="block uppercase tracking-wide text-xs font-bold mb-2"
+              for="peso"
+            >
+              Peso (Kg)
+            </label>
+            <input
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              v-model="peso"
+              id="peso"
+              type="text"
+              pattern="[0-9]+([,\.][0-9]+)?"
+              placeholder="50,25"
+            />
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label
+              class="block uppercase tracking-wide text-xs font-bold mb-2"
+              for="altura"
+            >
+              Altura (m)
+            </label>
+            <input
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              v-model="altura"
+              id="altura"
+              type="text"
+              pattern="[0-9]+([,\.][0-9]+)?"
+              placeholder="1,65"
+            />
+          </div>
         </div>
-        <div class="button-grid">
-          <button type="submit">Calcular</button>
+        <div class="flex justify-center items-center pt-7">
+          <button
+            class="w-52 h-16 bg-nutry-primary hover:bg-nutry-secondary text-white dark:brightness-[.80] font-semibold text-xl border rounded shadow appearance-none border-[#9002bf]"
+            type="submit"
+          >
+            Calcular
+          </button>
         </div>
-        <div class="result-grid">
+        <div class="flex justify-center items-center pt-7">
           <CalcImcResult
             v-if="result > 0 && classificacao.length > 0"
             :result="result"
@@ -95,98 +129,3 @@ export default {
     </div>
   </main>
 </template>
-
-<style lang="css" scoped>
-#label-altura {
-  padding-left: 2%;
-  padding-right: 3%;
-}
-
-#label-peso {
-  padding-right: 3%;
-}
-
-form {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-}
-
-main {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: 6vh 94vh;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-}
-
-.data-inputs-grid {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.button-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.result-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5%;
-}
-
-header {
-  grid-area: 1 / 1 / 2 / 3;
-}
-
-.sidebar {
-  grid-area: 2 / 1 / 6 / 2;
-  background-color: #660066;
-}
-.main-content {
-  grid-area: 2 / 2 / 6 / 3;
-  background-color: #333333;
-  color: aliceblue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-button {
-  width: 13rem;
-  height: 4rem;
-  font-size: 1.25rem;
-  background-color: #f06537;
-  color: white;
-  box-shadow: 0px 0px 12px -2px rgba(143, 47, 12, 1);
-  border-radius: 5px;
-  cursor: pointer;
-  border-color: #f06537;
-}
-
-button:hover {
-  background-color: #ed8442;
-  border-color: #ed8442;
-  box-shadow: 0px 0px 12px -2px rgb(200, 98, 60);
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-  appearance: textfield;
-  height: 2rem;
-  width: 14rem;
-}
-</style>
